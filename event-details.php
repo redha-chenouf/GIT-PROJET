@@ -18,7 +18,7 @@ require_once "includes/config.php";
 if (isset($_GET["id"]) && !empty(trim($_GET["id"]))) {
     // Préparer une requête SQL pour récupérer les détails de l'fête spécifique
     // La requête joint les tables 'events' et 'users' pour récupérer des informations supplémentaires sur l'utilisateur qui a créé l'fête
-    $sql = "SELECT events.*, users.image AS user_image, users.pseudo AS user_pseudo FROM events LEFT JOIN users ON events.user_id = users.id WHERE events.id = :id";
+    $sql = "SELECT events.*, users.image AS user_image, users.pseudo AS user_id FROM events LEFT JOIN users ON events.user_id = users.id WHERE events.id = :id";
 
     if ($stmt = $pdo->prepare($sql)) {
         // Associer le paramètre ':id' à la valeur d'ID obtenue via GET
@@ -80,7 +80,7 @@ if (isset($_GET["id"]) && !empty(trim($_GET["id"]))) {
             <?php if (!empty($event["user_image"])) : ?>
                 <img src="data:image/jpeg;base64,<?php echo $event["user_image"]; ?>" alt="Image de profil de l'utilisateur" style="width:100px;height:100px;">
             <?php endif; ?>
-            <p>évènement de <br><?php echo htmlspecialchars($event["user_pseudo"]); ?></p>
+            <p>évènement de <br><?php echo htmlspecialchars($event["user_id"]); ?></p>
         </div>
 
         <p class="description"><b>Description :</b> <?php echo htmlspecialchars($event["description"]); ?></p>
